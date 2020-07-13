@@ -36,4 +36,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    const Director_TYPE = 1;
+    const Manager_TYPE = 2;
+    const DEFAULT_TYPE = 0;
+    public function Director(){
+        return $this->type === self::Director_TYPE;
+    }
+    public function Manager(){
+        return $this->type === self::Manager_TYPE;
+    }
 }

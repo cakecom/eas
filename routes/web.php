@@ -20,3 +20,18 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+//Route for normal user
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', 'HomeController@index');
+});
+//Route for admin
+Route::group(['prefix' => 'director'], function(){
+    Route::group(['middleware' => ['director']], function(){
+        Route::get('/dashboard', 'director\DirectorController@index');
+    });
+});
+Route::group(['prefix' => 'manager'], function(){
+    Route::group(['middleware' => ['manager']], function(){
+        Route::get('/dashboard', 'manager\ManagerController@index');
+    });
+});
