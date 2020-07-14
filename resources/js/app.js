@@ -7,6 +7,10 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+var url = window.location;
+require('admin-lte/plugins/jquery/jquery.min');
+require('admin-lte/plugins/jquery-ui/jquery-ui.min');
+// require('admin-lte/plugins/bootstrap/js/bootstrap.bundle.min');
 
 /**
  * The following block of code may be used to automatically register your
