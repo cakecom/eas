@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+        $a= \App\Assessment::select('user_id')->get()->toarray();
+        $array=array();
+        foreach ($a as $data){
+            $array[]=$data['user_id'];
+        }
+ $e =DB::table('users')->where('id','!=',3)
+     ->whereRaw('id  NOT IN('.implode(',',($array)).')')
+     ->get();
+// dd($e);
     return view('welcome');
 });
 

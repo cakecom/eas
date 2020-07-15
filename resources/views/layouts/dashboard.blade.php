@@ -95,8 +95,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Content Wrapper. Contains page content -->
     <div id="app" class="content-wrapper">
+
         <!-- Content Header (Page header) -->
         <div class="content-header">
+
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
@@ -114,6 +116,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
+            @yield('head-display')
         </div>
         <!-- /.content-header -->
 
@@ -132,19 +135,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.control-sidebar -->
 
     <!-- Main Footer -->
-    <footer class="main-footer">
-        <!-- To the right -->
-        <div class="float-right d-none d-sm-inline">
-            Anything you want
-        </div>
-        <!-- Default to the left -->
-        <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-    </footer>
+
 </div>
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
 
 <script src="{{asset('js/app.js')}}"></script>
+@yield('js')
 </body>
 </html>

@@ -10,6 +10,11 @@ window.Vue = require('vue');
 var url = window.location;
 require('admin-lte/plugins/jquery/jquery.min');
 require('admin-lte/plugins/jquery-ui/jquery-ui.min');
+require('admin-lte/plugins/datatables/jquery.dataTables.min.js');
+require('admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');
+require('admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js');
+require('admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');
+require('admin-lte/dist/js/demo');
 // require('admin-lte/plugins/bootstrap/js/bootstrap.bundle.min');
 
 /**
