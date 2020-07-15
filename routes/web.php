@@ -29,10 +29,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::resource('/home', 'HomeController');
 //Route for normal user
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', 'HomeController@index');
+    Route::resource('/home', 'HomeController');
 });
 //Route for admin
 Route::group(['prefix' => 'director'], function(){

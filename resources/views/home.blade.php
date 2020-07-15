@@ -6,28 +6,28 @@
             <!-- small box -->
             <div class="small-box bg-success">
                 <div class="inner" style="text-align: center">
-                    <h3>53<sup style="font-size: 20px">%</sup></h3>
+                    <h3>{{count($assessed)}}</h3>
 
                     <p>Assessed</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+{{--                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>--}}
             </div>
         </div>
         <div class="col-lg-6 col-6">
             <!-- small box -->
             <div class="small-box bg-danger">
                 <div class="inner" style="text-align: center">
-                    <h3>65</h3>
+                    <h3>{{count($not_assessed)}}</h3>
 
                     <p>No Assessment</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-pie-graph"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+{{--                <a href="{{url('/home')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>--}}
             </div>
         </div>
         <!-- ./col -->
@@ -49,46 +49,14 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <table id="example2" class="table table-bordered table-hover"
+                            <table id="user_table" class="table table-bordered table-striped"
                                    style="margin:auto;width: 50%;border-color: red;border-width: thin;">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th width="30%">Status</th>
+                                    <th width="30%">Action</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Trident</td>
-                                    <td>
-                                        <button type="button" class="btn-xs btn-block bg-gradient-info"
-                                                data-toggle="modal" data-target="#modal-default">
-                                            Evaluate
-                                        </button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Trident</td>
-                                    <td>
-                                        <button type="button" class="btn-xs btn-block bg-gradient-info"
-                                                data-toggle="modal" data-target="#modal-default">
-                                            Evaluate
-                                        </button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Trident</td>
-                                    <td>
-                                        <button type="button" class="btn-xs btn-block bg-gradient-info"
-                                                data-toggle="modal" data-target="#modal-default">
-                                            Evaluate
-                                        </button>
-                                    </td>
-
-                                </tr>
-                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -97,8 +65,11 @@
             <!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
-    <div class="modal fade" id="modal-default">
+    <div class="modal fade" id="modal-info">
         <div class="modal-dialog modal-lg">
+            <span id="form_result"></span>
+            <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
+                @csrf
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Evaluate</h4>
@@ -112,6 +83,7 @@
                             <p class="card-title">( bed = 1,so so = 2,good = 3,very good = 4 ) Point</p>
                         </div>
                         <div class="card-body">
+
                             <!-- Minimal style -->
                             <h4>Time management:</h4>
                             <hr>
@@ -333,9 +305,10 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <input type="submit" name="action_button" id="action_button" class="btn btn-primary" value="Save changes" />
                 </div>
             </div>
+            </form>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
@@ -346,19 +319,60 @@
 @section('js')
     <script>
         $(function () {
-            $("#example1").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-            });
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
+            $("#user_table").DataTable({
+
+                "searching": true,
                 "info": true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "responsive": true,
+                "processing": true,
+                "serverSide": true,
+                ajax: {
+                    url: "{{ route('home.index') }}",
+                },
+                columns: [
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    }
+                ]
             });
+            $('#sample_form').on('submit', function(event) {
+                event.preventDefault();
+                    $.ajax({
+                        url: "{{ route('home.store') }}",
+                        method: "POST",
+                        data: new FormData(this),
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        dataType: "json",
+                        success: function (data) {
+                            var html = '';
+                            if (data.errors) {
+                                html = '<div class="alert alert-danger">';
+                                for (var count = 0; count < data.errors.length; count++) {
+                                    html += '<p>' + data.errors[count] + '</p>';
+                                }
+                                html += '</div>';
+                                $('#form_result').html(html);
+                            }
+                            if (data.success) {
+                                html = '<div class="alert alert-success">' + data.success + '</div>';
+                                $('#sample_form')[0].reset();
+                                $('#user_table').DataTable().ajax.reload();
+                                $('#modal-info').modal('toggle');
+                            }
+                        }
+                    })
+
+            });
+
         });
     </script>
 @endsection
