@@ -15,6 +15,8 @@ require('admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');
 require('admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js');
 require('admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');
 require('admin-lte/dist/js/demo');
+import Swal from 'sweetalert2'
+window.Swal = Swal;
 // require('admin-lte/plugins/bootstrap/js/bootstrap.bundle.min');
 
 /**

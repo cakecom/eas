@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         if (auth()->user()->Director()) {
-            return view('director/dashboard');
+            return redirect(route(''));
         } elseif (auth()->user()->Manager()) {
             return view('manager/dashboard');
         } else {
@@ -57,8 +57,34 @@ class HomeController extends Controller
                     ->rawColumns(['action'])
                     ->make(true);
             }
-            return view('home', compact('not_assessed', 'assessed'));
+            return view('home');
         }
+    }
+
+    public function count_assessment()
+    {
+        $assessed = Assessment::select('user_id')->get()->toarray();
+        $assessed_count = count($assessed);
+        if (count($assessed) > 0) {
+            $array = array();
+            foreach ($assessed as $data) {
+                $array[] = $data['user_id'];
+            }
+            $not_assessed = DB::table('users')->where('id', '!=', 3)
+                ->where('type', '=', '0')
+                ->whereRaw('id  NOT IN(' . implode(',', ($array)) . ')')
+                ->count();
+        } else {
+            $not_assessed = DB::table('users')->where('id', '!=', 3)
+                ->where('type', '=', '0')
+                ->count();
+
+        }
+        $data = [
+            'assessed' => $assessed_count,
+            'not_assessed' => $not_assessed
+        ];
+        return $data;
     }
 
     public function store(Request $request)
@@ -77,13 +103,15 @@ class HomeController extends Controller
         if ($error->fails()) {
             return response()->json(['errors' => $error->errors()->all()]);
         }
+        $score=$request->time_management+$request->quality+$request->creativity+$request->team_work+$request->discipline;
         $form_data = array(
             'time_management' => $request->time_management,
             'quality_of_work' => $request->quality,
             'creativity' => $request->creativity,
             'team_work' => $request->team_work,
             'discipline' => $request->discipline,
-            'user_id' =>$request->user_id
+            'user_id' => $request->user_id,
+            'score'=>$score
         );
 
         Assessment::create($form_data);

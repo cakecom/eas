@@ -9,6 +9,7 @@ class DirectorController extends Controller
 {
     public function index()
     {
+
         return view('director/dashboard');
     }
 }

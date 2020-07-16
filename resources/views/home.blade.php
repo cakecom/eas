@@ -6,7 +6,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
                 <div class="inner" style="text-align: center">
-                    <h3>{{count($assessed)}}</h3>
+                    <h3 id="assessed"></h3>
 
                     <p>Assessed</p>
                 </div>
@@ -20,7 +20,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
                 <div class="inner" style="text-align: center">
-                    <h3>{{count($not_assessed)}}</h3>
+                    <h3 id="not_assessed"></h3>
 
                     <p>No Assessment</p>
                 </div>
@@ -344,6 +344,27 @@
                     }
                 ]
             });
+            load_data();
+
+            function load_data() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('countAssessment') }}",
+                    method: "POST",
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (data) {
+                        $('#assessed').html(data['assessed']);
+                        $('#not_assessed').html(data['not_assessed']);
+                    }
+                });
+            }
             $('#modal-info').on('show.bs.modal',function (event) {
                 var button=$(event.relatedTarget);
                 var id=button.data('id');
@@ -375,6 +396,7 @@
                                 $('#sample_form')[0].reset();
                                 $('#user_table').DataTable().ajax.reload();
                                 $('#modal-info').modal('toggle');
+                                load_data();
                             }
                         }
                     })

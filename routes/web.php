@@ -33,15 +33,19 @@ Auth::routes();
 //Route for normal user
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('/home', 'HomeController');
+    Route::post('/countAssessment','HomeController@count_assessment')->name('countAssessment');
 });
 //Route for admin
 Route::group(['prefix' => 'director'], function(){
     Route::group(['middleware' => ['director']], function(){
-        Route::get('/dashboard', 'director\DirectorController@index')->name('director');
+        Route::get('/dashboard', 'director\DirectorController@index');
     });
 });
 Route::group(['prefix' => 'manager'], function(){
     Route::group(['middleware' => ['manager']], function(){
         Route::get('/dashboard', 'manager\ManagerController@index');
+        Route::get('/getDetails','manager\ManagerController@details')->name('details');
+        Route::post('/sendDirector','manager\ManagerController@sendDirector')->name('sendDirector');
+        Route::get('/getAssessment', 'manager\ManagerController@getAssessment')->name('getAssessment');
     });
 });
