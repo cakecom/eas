@@ -50,7 +50,8 @@ class HomeController extends Controller
             }
             if (request()->ajax()) {
                 return datatables()->of($not_assessed)->addColumn('action', function ($data) {
-                    $button = '<button type="button" name="insert" id="' . $data->id . '" class="edit btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-info">Evaluate</button>';
+                    $button = '<button type="button" name="insert" id="insert" class="edit btn btn-primary btn-sm"
+ data-id="' . $data->id . '" data-toggle="modal" data-target="#modal-info">Evaluate</button>';
                     return $button;
                 })
                     ->rawColumns(['action'])
@@ -59,18 +60,33 @@ class HomeController extends Controller
             return view('home', compact('not_assessed', 'assessed'));
         }
     }
-    public function store(Request $request){
+
+    public function store(Request $request)
+    {
         $rules = array(
-            'time_management'    =>  'required',
-  
+            'time_management' => 'required',
+            'quality' => 'required',
+            'creativity' => 'required',
+            'team_work' => 'required',
+            'discipline' => 'required',
+            'user_id' => 'required'
+
         );
 
         $error = Validator::make($request->all(), $rules);
-
-        if($error->fails())
-        {
+        if ($error->fails()) {
             return response()->json(['errors' => $error->errors()->all()]);
         }
+        $form_data = array(
+            'time_management' => $request->time_management,
+            'quality_of_work' => $request->quality,
+            'creativity' => $request->creativity,
+            'team_work' => $request->team_work,
+            'discipline' => $request->discipline,
+            'user_id' =>$request->user_id
+        );
+
+        Assessment::create($form_data);
         return response()->json(['success' => 'Data  successfully.']);
     }
 }

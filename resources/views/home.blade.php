@@ -70,6 +70,7 @@
             <span id="form_result"></span>
             <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
                 @csrf
+
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Evaluate</h4>
@@ -78,6 +79,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" id="user_id" name="user_id">
                     <div class="card card-primary">
                         <div class="card-header">
                             <p class="card-title">( bed = 1,so so = 2,good = 3,very good = 4 ) Point</p>
@@ -94,7 +96,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="time_management1" name="time_management">
+                                                    <input type="radio" id="time_management1" value="1" name="time_management">
                                                     <label for="time_management1" style="color:red">
                                                         Bad
                                                     </label>
@@ -102,7 +104,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="time_management2" name="time_management">
+                                                    <input type="radio" id="time_management2"  value="2" name="time_management">
                                                     <label for="time_management2">
                                                         So So
                                                     </label>
@@ -110,7 +112,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="time_management3" name="time_management">
+                                                    <input type="radio" id="time_management3"  value="3"  name="time_management">
                                                     <label for="time_management3" style="color:#1dbdf2">
                                                         Good
                                                     </label>
@@ -118,7 +120,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="time_management4" name="time_management">
+                                                    <input type="radio" id="time_management4"  value="4" name="time_management">
                                                     <label for="time_management4" style="color:#009906">
                                                         Very Good
                                                     </label>
@@ -137,7 +139,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="quality1" name="quality">
+                                                    <input type="radio" id="quality1"  value="1" name="quality">
                                                     <label for="quality1" style="color:red">
                                                         Bad
                                                     </label>
@@ -145,7 +147,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="quality2" name="quality">
+                                                    <input type="radio" id="quality2"  value="2" name="quality">
                                                     <label for="quality2">
                                                         So So
                                                     </label>
@@ -153,7 +155,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="quality3" name="quality">
+                                                    <input type="radio" id="quality3"  value="3" name="quality">
                                                     <label for="quality3" style="color:#1dbdf2">
                                                         Good
                                                     </label>
@@ -161,7 +163,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="quality4" name="quality">
+                                                    <input type="radio" id="quality4"  value="4"  name="quality">
                                                     <label for="quality4" style="color:#009906">
                                                         Very Good
                                                     </label>
@@ -180,7 +182,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="creativity1" name="creativity">
+                                                    <input type="radio" id="creativity1"  value="1" name="creativity">
                                                     <label for="creativity1" style="color:red">
                                                         Bad
                                                     </label>
@@ -188,7 +190,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="creativity2" name="creativity">
+                                                    <input type="radio" id="creativity2"  value="2" name="creativity">
                                                     <label for="creativity2">
                                                         So So
                                                     </label>
@@ -196,7 +198,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="creativity3" name="creativity">
+                                                    <input type="radio" id="creativity3"  value="3" name="creativity">
                                                     <label for="creativity3" style="color:#1dbdf2">
                                                         Good
                                                     </label>
@@ -204,7 +206,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="creativity4" name="creativity">
+                                                    <input type="radio" id="creativity4"  value="4" name="creativity">
                                                     <label for="creativity4" style="color:#009906">
                                                         Very Good
                                                     </label>
@@ -223,7 +225,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="team_work1" name="team_work">
+                                                    <input type="radio" id="team_work1"  value="1" name="team_work">
                                                     <label for="team_work1" style="color:red">
                                                         Bad
                                                     </label>
@@ -231,7 +233,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="team_work2" name="team_work">
+                                                    <input type="radio" id="team_work2"  value="2" name="team_work">
                                                     <label for="team_work2">
                                                         So So
                                                     </label>
@@ -239,7 +241,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="team_work3" name="team_work">
+                                                    <input type="radio" id="team_work3"  value="3" name="team_work">
                                                     <label for="team_work3" style="color:#1dbdf2">
                                                         Good
                                                     </label>
@@ -247,7 +249,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="team_work4" name="team_work">
+                                                    <input type="radio" id="team_work4"  value="4" name="team_work">
                                                     <label for="team_work4" style="color:#009906">
                                                         Very Good
                                                     </label>
@@ -266,7 +268,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="discipline1" name="discipline">
+                                                    <input type="radio" id="discipline1"   value="1" name="discipline">
                                                     <label for="discipline1" style="color:red">
                                                         Bad
                                                     </label>
@@ -274,7 +276,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="discipline2" name="discipline">
+                                                    <input type="radio" id="discipline2"  value="2" name="discipline">
                                                     <label for="discipline2">
                                                         So So
                                                     </label>
@@ -282,7 +284,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="discipline3" name="discipline">
+                                                    <input type="radio" id="discipline3"  value="3" name="discipline">
                                                     <label for="discipline3" style="color:#1dbdf2">
                                                         Good
                                                     </label>
@@ -290,7 +292,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="icheck-primary d-inline">
-                                                    <input type="radio" id="discipline4" name="discipline">
+                                                    <input type="radio" id="discipline4"  value="4" name="discipline">
                                                     <label for="discipline4" style="color:#009906">
                                                         Very Good
                                                     </label>
@@ -341,6 +343,12 @@
                         orderable: false
                     }
                 ]
+            });
+            $('#modal-info').on('show.bs.modal',function (event) {
+                var button=$(event.relatedTarget);
+                var id=button.data('id');
+                var modal=$(this);
+                modal.find('.modal-body #user_id').val(id);
             });
             $('#sample_form').on('submit', function(event) {
                 event.preventDefault();
