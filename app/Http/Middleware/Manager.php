@@ -19,7 +19,8 @@ class Manager
         if( Auth::check() && (Auth::user()->Manager()) ) {
             return $next($request);
         } else {
-            abort(403, 'Unauthorized action.');
+            return  redirect(route('login'));
+//            abort(403, 'Unauthorized action.');
         }
     }
 }

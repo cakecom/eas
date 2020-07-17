@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-
+    <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
     <title>EAS |
         Employee Assessment System</title>
 
@@ -68,6 +68,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </p>
                         </a>
                     </li>
+                    @endif
+                    @if(Auth::user()->type==2)
+                        <li class="nav-item ">
+                            <a href="{{url('manager/dashboard')}}" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt purple"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{{route('assessment.index')}}" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt yellow"></i>
+                                <p>
+                                    Assessment Enable
+                                </p>
+                            </a>
+                        </li>
                     @endif
                     <li class="nav-item">
                         @if(Session::has('username'))

@@ -3,8 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Awobaz\Compoships\Compoships;
 class Request extends Model
 {
-    protected $fillable=['assessment_id'];
+    use Compoships;
+    //
+    protected $fillable=['user_id','status','quarter_id'];
 }
