@@ -43,8 +43,10 @@
                         <div class="card-header">
                             Employee Evaluation Form
                             <div class="card-tools">
-                                <div class="input-group input-group-sm" style="width: 150px;">
-                                    QUARTER AT 1
+                                <div class="input-group input-group-sm" >
+                                    Quarter at {{$quarter['quarter']}}
+                                    <br>
+                                    ({{$quarter['date']}} )
                                 </div>
                             </div>
                         </div>

@@ -60,7 +60,7 @@ class HomeController extends Controller
                         ->rawColumns(['action'])
                         ->make(true);
                 }
-                return view('home');
+                return view('home',compact('quarter'));
             }else{
                 return view('empty');
             }

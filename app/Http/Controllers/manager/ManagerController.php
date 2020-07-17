@@ -17,7 +17,7 @@ class ManagerController extends Controller
         if(!empty($quarter)){
             $employee = User::where('type', 0)->count();
             $count_forms = $employee * ($employee - 1);
-            $assessed = Assessment::count();
+            $assessed = Assessment::where('quarter_id',$quarter->id)->count();
             return view('manager/dashboard', compact('count_forms', 'assessed','quarter'));
         }else{
             return view('empty');
