@@ -4,6 +4,7 @@ namespace App\Http\Controllers\manager;
 
 use App\Assessment;
 use App\Http\Controllers\Controller;
+use App\Quarter;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,14 +13,15 @@ class ManagerController extends Controller
 {
     public function index()
     {
-//        $score = Assessment::select(DB::raw("count(user_id)user,sum(time_management)T,
-//        sum(quality_of_work)Q,sum(quality_of_work)Q,sum(creativity)C,
-//        sum(team_work)W,sum(discipline)D,sum(score)N,user_id"))
-//            ->groupBy('user_id')->get();
-        $employee = User::where('type', 0)->count();
-        $count_forms = $employee * ($employee - 1);
-        $assessed = Assessment::count();
-        return view('manager/dashboard', compact('count_forms', 'assessed'));
+        $quarter=Quarter::select('*')->where(['status'=>'true','success'=>0])->first();
+        if(!empty($quarter)){
+            $employee = User::where('type', 0)->count();
+            $count_forms = $employee * ($employee - 1);
+            $assessed = Assessment::count();
+            return view('manager/dashboard', compact('count_forms', 'assessed','quarter'));
+        }else{
+            return view('empty');
+        }
 
     }
 
@@ -32,9 +34,11 @@ class ManagerController extends Controller
 
     public function sendDirector(Request $request)
     {
+        $quarter=Quarter::select('*')->where(['status'=>'true','success'=>0])->first();
         $sendDirector = new \App\Request([
             'user_id' => $request->id,
-            'status' => 'Pending'
+            'status' => 'Pending',
+            'quarter_id' => $quarter->id
         ]);
         $sendDirector->save();
         return "success";
@@ -42,9 +46,11 @@ class ManagerController extends Controller
 
     public function getAssessment()
     {
+        $quarter=Quarter::select('*')->where(['status'=>'true','success'=>0])->first();
         $score = Assessment::select(DB::raw("count(user_id)user,sum(time_management)T,
         sum(quality_of_work)Q,sum(quality_of_work)Q,sum(creativity)C,
         sum(team_work)W,sum(discipline)D,sum(score)N,user_id"))
+            ->where('quarter_id',$quarter->id)
             ->groupBy('user_id')->get();
         $output = '';
         $output .= '

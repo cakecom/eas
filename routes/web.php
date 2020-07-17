@@ -44,6 +44,7 @@ Route::group(['prefix' => 'director'], function(){
 Route::group(['prefix' => 'manager'], function(){
     Route::group(['middleware' => ['manager']], function(){
         Route::get('/dashboard', 'manager\ManagerController@index');
+        Route::resource('assessment','manager\AssessmentFormController');
         Route::get('/getDetails','manager\ManagerController@details')->name('details');
         Route::post('/sendDirector','manager\ManagerController@sendDirector')->name('sendDirector');
         Route::get('/getAssessment', 'manager\ManagerController@getAssessment')->name('getAssessment');

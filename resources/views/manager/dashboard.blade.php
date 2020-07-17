@@ -57,8 +57,10 @@
                         <div class="card-header">
                             Average score
                             <div class="card-tools">
-                                <div class="input-group input-group-sm" style="width: 150px;">
-                                    QUARTER AT 1
+                                <div class="input-group input-group-sm" >
+                                    Quarter at {{$quarter['quarter']}}
+                                    <br>
+                                    ({{$quarter['date']}} )
                                 </div>
                             </div>
                         </div>
@@ -75,9 +77,10 @@
 @endsection
 @section('js')
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             load_data();
-            function load_data(){
+
+            function load_data() {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -112,7 +115,7 @@
 
                 swalWithBootstrapButtons.fire({
                     title: 'Are you sure?',
-                    text: "You want send "+name+" to Director",
+                    text: "You want send " + name + " to Director",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Yes, sent it!',
@@ -128,7 +131,7 @@
                         $.ajax({
                             url: "{{ route('sendDirector')}}",
                             method: "POST",
-                            data:{id:id},
+                            data: {id: id},
                             success: function (data) {
                                 swalWithBootstrapButtons.fire(
                                     'Sent!',
@@ -151,6 +154,6 @@
                     }
                 });
             });
-            });
+        });
     </script>
 @endsection
