@@ -104,6 +104,12 @@
 
             $(document).on('click', '#details', function () {
                 var id = $(this).data('id');
+                var time_manage = $(this).data('time_manage');
+                var quality = $(this).data('quality');
+                var creativity = $(this).data('creativity');
+                var team_work = $(this).data('team_work');
+                var discipline = $(this).data('discipline');
+                var score = $(this).data('score');
                 var name = $(this).data('name');
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
@@ -131,7 +137,12 @@
                         $.ajax({
                             url: "{{ route('sendDirector')}}",
                             method: "POST",
-                            data: {id: id},
+                            data: {id: id,time_manage:time_manage,
+                                quality:quality,
+                                creativity:creativity,
+                                team_work:team_work,
+                                discipline:discipline,
+                                score:score,},
                             success: function (data) {
                                 swalWithBootstrapButtons.fire(
                                     'Sent!',

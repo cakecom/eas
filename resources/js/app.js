@@ -18,6 +18,7 @@ require('admin-lte/plugins/select2/js/select2.full.min');
 require('admin-lte/dist/js/demo');
 require('admin-lte/plugins/daterangepicker/daterangepicker');
 require('admin-lte/plugins/bootstrap-switch/js/bootstrap-switch.min');
+require('admin-lte/plugins/chart.js/Chart.min');
 import moment from 'moment';
 window.moment = moment;
 import Swal from 'sweetalert2'

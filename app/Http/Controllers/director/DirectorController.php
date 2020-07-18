@@ -3,13 +3,25 @@
 namespace App\Http\Controllers\director;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Quarter;
+use App\Request;
+
 
 class DirectorController extends Controller
 {
     public function index()
     {
-
-        return view('director/dashboard');
+        $request=Request::where('status','Pending')->get();
+        return view('director/dashboard',compact('request'));
+    }
+    public function updateDirector(Request $request){
+        $request=Request::find($_POST['id']);
+        $request->update(['status'=>$_POST['status']]);
+        return redirect(route('indexDirector'));
+    }
+    public function getRequest(){
+        $id=$_GET['id'];
+       $request=Request::find($id);
+        return response()->json($request);
     }
 }

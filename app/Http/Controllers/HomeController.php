@@ -28,7 +28,7 @@ class HomeController extends Controller
     public function index()
     {
         if (auth()->user()->Director()) {
-            return redirect(route(''));
+            return view('director/dashboard');
         } elseif (auth()->user()->Manager()) {
             return view('manager/dashboard');
         } else {

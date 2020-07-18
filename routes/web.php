@@ -38,7 +38,9 @@ Route::group(['middleware' => ['auth']], function () {
 //Route for admin
 Route::group(['prefix' => 'director'], function(){
     Route::group(['middleware' => ['director']], function(){
-        Route::get('/dashboard', 'director\DirectorController@index');
+        Route::get('/dashboard', 'director\DirectorController@index')->name('indexDirector');
+        Route::get('/getRequest', 'director\DirectorController@getRequest')->name('getRequest');
+        Route::post('/updateDirector','director\DirectorController@updateDirector')->name('updateDirector');
     });
 });
 Route::group(['prefix' => 'manager'], function(){

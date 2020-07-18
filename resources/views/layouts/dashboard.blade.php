@@ -61,7 +61,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                          with font-awesome or any other icon font library -->
                     @if(Auth::user()->type==1)
                     <li class="nav-item ">
-                        <a href="{{route('director')}}" class="nav-link">
+                        <a href="{{url('director/dashboard')}}" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt yellow"></i>
                             <p>
                                 Dashboard

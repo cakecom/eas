@@ -13,13 +13,13 @@ class ManagerController extends Controller
 {
     public function index()
     {
-        $quarter=Quarter::select('*')->where(['status'=>'true','success'=>0])->first();
-        if(!empty($quarter)){
+        $quarter = Quarter::select('*')->where(['status' => 'true', 'success' => 0])->first();
+        if (!empty($quarter)) {
             $employee = User::where('type', 0)->count();
             $count_forms = $employee * ($employee - 1);
-            $assessed = Assessment::where('quarter_id',$quarter->id)->count();
-            return view('manager/dashboard', compact('count_forms', 'assessed','quarter'));
-        }else{
+            $assessed = Assessment::where('quarter_id', $quarter->id)->count();
+            return view('manager/dashboard', compact('count_forms', 'assessed', 'quarter'));
+        } else {
             return view('empty');
         }
 
@@ -34,11 +34,17 @@ class ManagerController extends Controller
 
     public function sendDirector(Request $request)
     {
-        $quarter=Quarter::select('*')->where(['status'=>'true','success'=>0])->first();
+        $quarter = Quarter::select('*')->where(['status' => 'true', 'success' => 0])->first();
         $sendDirector = new \App\Request([
             'user_id' => $request->id,
             'status' => 'Pending',
-            'quarter_id' => $quarter->id
+            'quarter_id' => $quarter->id,
+            'time_manage' =>$request->time_manage,
+            'quality' =>$request->quality,
+            'creativity' =>$request->creativity,
+            'team_work' =>$request->team_work,
+            'discipline' =>$request->discipline,
+            'score' =>$request->score
         ]);
         $sendDirector->save();
         return "success";
@@ -46,11 +52,11 @@ class ManagerController extends Controller
 
     public function getAssessment()
     {
-        $quarter=Quarter::select('*')->where(['status'=>'true','success'=>0])->first();
+        $quarter = Quarter::select('*')->where(['status' => 'true', 'success' => 0])->first();
         $score = Assessment::select(DB::raw("count(user_id)user,sum(time_management)T,
         sum(quality_of_work)Q,sum(quality_of_work)Q,sum(creativity)C,
         sum(team_work)W,sum(discipline)D,sum(score)N,user_id"))
-            ->where('quarter_id',$quarter->id)
+            ->where('quarter_id', $quarter->id)
             ->groupBy('user_id')->get();
         $output = '';
         $output .= '
@@ -77,22 +83,26 @@ class ManagerController extends Controller
                                         <th>' . $row->T / $row->user . '</th>
                                         <th>' . $row->Q / $row->user . '</th>
                                         <th>' . $row->C / $row->user . '</th>
-                                        <th>' . $row->D / $row->user . '</th>
                                         <th>' . $row->W / $row->user . '</th>
+                                        <th>' . $row->D / $row->user . '</th>
                                         <th>' . $row->N / $row->user . '</th>
                                         <th>
                                         ';
-                                    if(is_null($row->request['status'])){
-            $output.='
-                                            <button type="button" id="details" class="btn btn-block btn-info" data-name="'.$row->users['name'].'"  data-id="'.$row->user_id.'">
+            if (is_null($row->request['status'])) {
+                $output .= '
+                                            <button type="button" id="details" class="btn btn-block btn-info"
+                                            data-time_manage="' . $row->T . '" data-quality="' . $row->Q . '"
+                                            data-creativity="' . $row->C . '" data-team_work="' . $row->W . '"
+                                            data-discipline="' . $row->D . '" data-score="' . $row->N . '"
+                                             data-name="' . $row->users['name'] . '"  data-id="' . $row->user_id . '">
                                                 Present Director
                                             </button>
                                         </th>
                                         <th>' . $row->request['status'] . '</th>
                                     </tr>
                          ';
-        }else{
-                                        $output.='
+            } else {
+                $output .= '
                                             <button type="button" id="details" class="btn btn-block btn-info  disabled"  disabled >
                                                 Present Director
                                             </button>
@@ -100,9 +110,9 @@ class ManagerController extends Controller
                                         <th>' . $row->request['status'] . '</th>
                                     </tr>
                          ';
-                                    }
+            }
         }
-               $output.='             
+        $output .= '             
                                 </tbody>
                             </table>
                ';
