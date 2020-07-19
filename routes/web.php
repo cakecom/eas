@@ -31,8 +31,8 @@ Auth::routes();
 
 //Route::resource('/home', 'HomeController');
 //Route for normal user
-Route::get('/test1',function (){
-return "ok";
+Route::get('/',function (){
+return redirect(Route('login'));
 });
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('/home', 'HomeController');
