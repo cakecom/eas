@@ -31,6 +31,9 @@ Auth::routes();
 
 //Route::resource('/home', 'HomeController');
 //Route for normal user
+Route::get('/test1',function (){
+return "ok";
+});
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('/home', 'HomeController');
     Route::post('/countAssessment','HomeController@count_assessment')->name('countAssessment');
