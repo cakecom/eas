@@ -10,7 +10,8 @@ class AuthCest
     public function _before()
     {
         $this->userAttributes = [
-            'email' =>  'employee@eas.com',
+            'email' =>  'employeetest@eas.com',
+            'name'=>'UserTest',
             'password' => Hash::make('P@ssw0rd'),
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
@@ -27,26 +28,26 @@ class AuthCest
         $I->seeAuthentication();
 
         // Login should persist between requests
-        $I->amOnPage(PostsPage::$url);
-
-        $I->seeAuthentication();
+//        $I->amOnPage(PostsPage::$url);
+//
+//        $I->seeAuthentication();
     }
 
-//    public function loginUsingCredentials(FunctionalTester $I)
-//    {
-//        $I->haveRecord('users', $this->userAttributes);
-//        $I->amLoggedAs(['name'=>'TestUser','email' => 'employee@eas.com', 'password' => 'P@ssw0rd']);
-//
+    public function loginUsingCredentials(FunctionalTester $I)
+    {
+        $I->haveRecord('users', $this->userAttributes);
+        $I->amLoggedAs(['name'=>'UserTest','email' => 'employeetest@eas.com', 'password' =>'P@ssw0rd']);
+
+        $I->amOnPage(PostsPage::$url);
+
+        $I->seeCurrentUrlEquals(PostsPage::$url);
+        $I->seeAuthentication();
+
+        // Login should persist between requests
 //        $I->amOnPage(PostsPage::$url);
 //
-//        $I->seeCurrentUrlEquals(PostsPage::$url);
 //        $I->seeAuthentication();
-//
-//        // Login should persist between requests
-//        $I->amOnPage(PostsPage::$url);
-//
-//        $I->seeAuthentication();
-//    }
+    }
 //
 //    public function secureRouteWithoutAuthenticatedUser(FunctionalTester $I)
 //    {
