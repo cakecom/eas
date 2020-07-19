@@ -15,7 +15,7 @@ require('admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min');
 require('admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min');
 require('admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min');
 require('admin-lte/plugins/select2/js/select2.full.min');
-require('admin-lte/dist/js/demo');
+// require('admin-lte/dist/js/demo');
 require('admin-lte/plugins/daterangepicker/daterangepicker');
 require('admin-lte/plugins/bootstrap-switch/js/bootstrap-switch.min');
 require('admin-lte/plugins/chart.js/Chart.min');
