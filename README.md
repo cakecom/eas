@@ -13,6 +13,15 @@
     - DB_PASSWORD=
 ## Import Mysql to DataBase
     - import eas.sql
+## Run Server Test
+    - php artisan serve
+## Unit Test
+        1. Auth Test
+       Commands
+        -  ./vendor/bin/codecept  run functional AuthCest.php
+        2. Register Test
+        Commands
+        -   ./vendor/bin/codecept  run unit
 ## Feature
      1.Employee
         Username:employee@eas.com, employee2@eas.com, employee3@eas.com, employee4@eas.com, employee5@eas.com, employee6@eas.com, employee7@eas.com, employee8@eas.com
