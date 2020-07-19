@@ -13,7 +13,28 @@
     - DB_PASSWORD=
 ## Import Mysql to DataBase
     - import eas.sql
-
+## Feature
+     1.Employee
+        Username:employee@eas.com, employee2@eas.com, employee3@eas.com, employee4@eas.com, employee5@eas.com, employee6@eas.com, employee7@eas.com, employee8@eas.com
+                 employee9@eas.com,employee10@eas.com
+        Password:P@ssw0rd
+        
+     . Take the employee evaluation form
+     
+    2.Manager
+        Username:manager@eas.com
+        Password:P@ssw0rd
+        
+     . Create evaluation form
+     . View evaluation scores
+     . Submit a salary adjustment request
+     
+    3.Director
+        Username:manager@eas.com
+        Password:P@ssw0rd
+      . View employee details  
+      . Approve request  
+     .    
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
