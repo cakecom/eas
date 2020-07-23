@@ -3,6 +3,7 @@
 ## Install Project
     - $ git clone https://github.com/cakecom/eas.git
     - composer install
+    - php artisan key:generate
     
 ## Config Project
     - change .env.example to .env
